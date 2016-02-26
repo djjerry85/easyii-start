@@ -5,19 +5,19 @@ $params = require(__DIR__ . '/params.php');
 $basePath =  dirname(__DIR__);
 $webroot = dirname($basePath);
 
-Yii::setAlias('@uploads', $webroot . DIRECTORY_SEPARATOR . 'uploads');
-
 $config = [
     'id' => 'app',
     'basePath' => $basePath,
     'bootstrap' => ['log'],
-    'language' => 'en-US',
+    'language' => 'ru-RU',
     'runtimePath' => $webroot . '/runtime',
     'vendorPath' => $webroot . '/vendor',
+
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => '',
+            'cookieValidationKey' => 'bdfgbsdkfbksjdb',
+            'enableCsrfValidation' => false
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -28,6 +28,31 @@ $config = [
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
         ],
+        'urlManager' => [
+            'class' => 'app\components\UrlManager',
+
+            // List all supported languages here
+            // Make sure, you include your app's default language.
+            'languages' => [ 'en', 'ru' => 'ru-RU', 'ge' => 'ka-GE'],
+            //'_defaultLanguage' => 'ru',
+            'enableLanguagePersistence' => false,
+            'rules' => [
+                [ 'class' => 'app\components\GalleryUrlRule', ],
+                '<controller:(news)>/<slug:[\w-]+>' => '<controller>/view',
+                '<controller:\w+>/view/<slug:[\w-]+>' => '<controller>/view',
+                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                '<controller:(admin)>' => '<controller>/default/index',
+                '<controller:(admin|news|gallery)>' => '<controller>/index',
+
+                '<controller:(admin|news|gallery)>/<action:\w+>' => '<controller>/<action>',
+                '<controller:(admin|news|gallery)>/<action:\w+>/<action2>' => '<controller>/<action>/<action2>',
+                '<controller:\w+>/cat/<slug:[\w-]+>' => '<controller>/cat',
+                '/<slug:>' => '/site/view-page',
+                '/<slug1:>/<slug:>' => '/site/view-page',
+                '/<slug2:>/<slug1:>/<slug:>' => '/site/view-page'
+            ],
+        ],
+
         'assetManager' => [
             // uncomment the following line if you want to auto update your assets (unix hosting only)
             //'linkAssets' => true,
@@ -68,4 +93,4 @@ if (YII_ENV_DEV) {
     $config['components']['db']['enableSchemaCache'] = false;
 }
 
-return array_merge_recursive($config, require(dirname(__FILE__) . '/../../vendor/noumo/easyii/config/easyii.php'));
+return array_merge_recursive($config, require($webroot . '/vendor/noumo/easyii/config/easyii.php'));

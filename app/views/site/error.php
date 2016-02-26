@@ -2,15 +2,31 @@
 use yii\helpers\Html;
 $this->title = $name;
 ?>
-<h1><?= Html::encode($this->title) ?></h1>
 
-<div class="alert alert-danger">
-    <?= nl2br(Html::encode($message)) ?>
+
+<div class="tag">
+    <div class="container">
+        <h5><i class="fa fa-share"></i>Ошибка</h5>
+    </div>
 </div>
+<div class="container">
+    <div class="col-md-12">
 
-<p>
-    The above error occurred while the Web server was processing your request.
-</p>
-<p>
-    Please contact us if you think this is a server error. Thank you.
-</p>
+    <div class="navigation-bread"><a href="/">Главная</a><span class="divider">&#8250;</span>Ошибка</div>
+    </div>
+
+    <div class="page-content col-md-12">
+        <h1 style="text-align: center; font-size: 30px;padding: 50px 0"><?= Html::encode($this->title) ?></h1>
+
+        <div>
+            <?= nl2br(Html::encode($message)) ?>
+        </div>
+    </div>
+
+
+</div>
+<div class="clear"></div>
+<div class="line"></div>
+
+
+

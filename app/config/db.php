@@ -2,10 +2,10 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=DB_NAME',
-    'username' => 'DB_USER',
-    'password' => 'DB_PASSWORD',
+    'dsn' => 'mysql:host=localhost;dbname=easycms',
+    'username' => 'easycms',
+    'password' => 'qazxcdews',
     'charset' => 'utf8',
     'tablePrefix' => '',
-    'enableSchemaCache' => true,
+    'enableSchemaCache' => false,
 ];
